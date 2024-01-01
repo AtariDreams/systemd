@@ -59,7 +59,7 @@ int prioq_ensure_allocated(Prioq **q, compare_func_t compare_func) {
 
         *q = prioq_new(compare_func);
         if (!*q)
-                return -ENOMEM;
+                return ENOMEM;
 
         return 0;
 }
@@ -154,7 +154,7 @@ int prioq_put(Prioq *q, void *data, unsigned *idx) {
                 n = MAX((q->n_items+1) * 2, 16u);
                 j = reallocarray(q->items, n, sizeof(struct prioq_item));
                 if (!j)
-                        return -ENOMEM;
+                        return ENOMEM;
 
                 q->items = j;
                 q->n_allocated = n;
@@ -177,7 +177,7 @@ int prioq_ensure_put(Prioq **q, compare_func_t compare_func, void *data, unsigne
         int r;
 
         r = prioq_ensure_allocated(q, compare_func);
-        if (r < 0)
+        if (r)
                 return r;
 
         return prioq_put(*q, data, idx);

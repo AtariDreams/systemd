@@ -189,12 +189,12 @@ int journal_file_set_offline_thread_join(JournalFile *f) {
 
         r = pthread_join(f->offline_thread, NULL);
         if (r)
-                return -r;
+                return r;
 
         f->offline_state = OFFLINE_JOINED;
 
         if (mmap_cache_fd_got_sigbus(f->cache_fd))
-                return -EIO;
+                return EIO;
 
         return 0;
 }
@@ -249,7 +249,7 @@ static int journal_file_set_online(JournalFile *f) {
                         int r;
 
                         r = journal_file_set_offline_thread_join(f);
-                        if (r < 0)
+                        if (r)
                                 return r;
 
                         wait = false;

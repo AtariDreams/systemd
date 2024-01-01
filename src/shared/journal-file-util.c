@@ -306,10 +306,10 @@ int journal_file_set_offline(JournalFile *f, bool wait) {
         assert(f);
 
         if (!journal_file_writable(f))
-                return -EPERM;
+                return EPERM;
 
         if (f->fd < 0 || !f->header)
-                return -EINVAL;
+                return EINVAL;
 
         target_state = f->archive ? STATE_ARCHIVED : STATE_OFFLINE;
 
@@ -324,7 +324,7 @@ int journal_file_set_offline(JournalFile *f, bool wait) {
         restarted = journal_file_set_offline_try_restart(f);
         if ((restarted && wait) || !restarted) {
                 r = journal_file_set_offline_thread_join(f);
-                if (r < 0)
+                if (r)
                         return r;
         }
 
@@ -351,17 +351,17 @@ int journal_file_set_offline(JournalFile *f, bool wait) {
                 assert_se(sigdelset(&ss, SIGBUS) >= 0);
 
                 r = pthread_sigmask(SIG_BLOCK, &ss, &saved_ss);
-                if (r > 0)
-                        return -r;
+                if (r)
+                        return r;
 
                 r = pthread_create(&f->offline_thread, NULL, journal_file_set_offline_thread, f);
 
                 k = pthread_sigmask(SIG_SETMASK, &saved_ss, NULL);
-                if (r > 0) {
+                if (r) {
                         f->offline_state = OFFLINE_JOINED;
                         return -r;
                 }
-                if (k > 0)
+                if (k)
                         return -k;
         }
 

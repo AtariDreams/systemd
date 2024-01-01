@@ -723,21 +723,21 @@ void server_sync(Server *s) {
 
         if (s->system_journal) {
                 r = journal_file_set_offline(s->system_journal, false);
-                if (r < 0)
+                if (r)
                         log_ratelimit_warning_errno(r, JOURNAL_LOG_RATELIMIT,
                                                     "Failed to sync system journal, ignoring: %m");
         }
 
         ORDERED_HASHMAP_FOREACH(f, s->user_journals) {
                 r = journal_file_set_offline(f, false);
-                if (r < 0)
+                if (r)
                         log_ratelimit_warning_errno(r, JOURNAL_LOG_RATELIMIT,
                                                     "Failed to sync user journal, ignoring: %m");
         }
 
         if (s->sync_event_source) {
                 r = sd_event_source_set_enabled(s->sync_event_source, SD_EVENT_OFF);
-                if (r < 0)
+                if (r)
                         log_ratelimit_error_errno(r, JOURNAL_LOG_RATELIMIT,
                                                   "Failed to disable sync timer source: %m");
         }
