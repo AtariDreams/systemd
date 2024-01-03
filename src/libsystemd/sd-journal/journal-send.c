@@ -46,14 +46,14 @@
  * all its threads, and all its subprocesses. This means we need to
  * initialize it atomically, and need to operate on it atomically
  * never assuming we are the only user */
-static int fd_plus_one = 0;
+static int fd_minus_one = -1;
 
 static int journal_fd(void) {
-        int fd;
+        int fd, fd_minus_one_local;
 
-retry:
-        if (fd_plus_one > 0)
-                return fd_plus_one - 1;
+        fd_minus_one_local = fd_minus_one;
+        if (fd_minus_one_local >= 0)
+                return fd_minus_one_local + 1;
 
         fd = socket(AF_UNIX, SOCK_DGRAM|SOCK_CLOEXEC, 0);
         if (fd < 0)
@@ -61,10 +61,11 @@ retry:
 
         fd_inc_sndbuf(fd, SNDBUF_SIZE);
 
-        if (!__atomic_compare_exchange_n(&fd_plus_one, &(int){0}, fd+1,
+        fd_minus_one_local = -1;
+        if (!__atomic_compare_exchange_n(&fd_minus_one, &fd_minus_one_local, fd-1,
                 false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST)) {
                 safe_close(fd);
-                goto retry;
+                fd = fd_minus_one_local + 1;
         }
 
         return fd;
@@ -90,11 +91,11 @@ void close_journal_fd(void) {
         if (getpid_cached() != gettid())
                 return;
 
-        if (fd_plus_one <= 0)
+        if (fd_minus_one < 0)
                 return;
 
-        safe_close(fd_plus_one - 1);
-        fd_plus_one = 0;
+        safe_close(fd_minus_one + 1);
+        fd_minus_one = 0;
 #endif
 }
 
