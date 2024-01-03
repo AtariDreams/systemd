@@ -153,11 +153,11 @@ static void journal_file_set_offline_internal(JournalFile *f) {
         assert(f->header);
 
         for (;;) {
-                switch (f->offline_state) {
+                switch (__atomic_load_n(f->offline_state, __ATOMIC_SEQ_CST)) {
                 case OFFLINE_CANCEL: {
                         OfflineState tmp_state = OFFLINE_CANCEL;
                         if (!__atomic_compare_exchange_n(&f->offline_state, &tmp_state, OFFLINE_DONE,
-                                                         false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST))
+                                                         false, __ATOMIC_SEQ_CST, __ATOMIC_RELAXED))
                                 continue;
                         }
                         return;
@@ -165,7 +165,7 @@ static void journal_file_set_offline_internal(JournalFile *f) {
                 case OFFLINE_AGAIN_FROM_SYNCING: {
                         OfflineState tmp_state = OFFLINE_AGAIN_FROM_SYNCING;
                         if (!__atomic_compare_exchange_n(&f->offline_state, &tmp_state, OFFLINE_SYNCING,
-                                                         false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST))
+                                                         true, __ATOMIC_SEQ_CST, __ATOMIC_RELAXED))
                                 continue;
                         }
                         break;
@@ -173,7 +173,7 @@ static void journal_file_set_offline_internal(JournalFile *f) {
                 case OFFLINE_AGAIN_FROM_OFFLINING: {
                         OfflineState tmp_state = OFFLINE_AGAIN_FROM_OFFLINING;
                         if (!__atomic_compare_exchange_n(&f->offline_state, &tmp_state, OFFLINE_SYNCING,
-                                                         false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST))
+                                                         true, __ATOMIC_SEQ_CST, __ATOMIC_RELAXED))
                                 continue;
                         }
                         break;
@@ -189,7 +189,7 @@ static void journal_file_set_offline_internal(JournalFile *f) {
                         {
                                 OfflineState tmp_state = OFFLINE_SYNCING;
                                 if (!__atomic_compare_exchange_n(&f->offline_state, &tmp_state, OFFLINE_OFFLINING,
-                                                                 false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST))
+                                                                 false, __ATOMIC_SEQ_CST, __ATOMIC_RELAXED))
                                         continue;
                         }
 
@@ -226,7 +226,7 @@ static void journal_file_set_offline_internal(JournalFile *f) {
                 case OFFLINE_OFFLINING: {
                         OfflineState tmp_state = OFFLINE_OFFLINING;
                         if (!__atomic_compare_exchange_n(&f->offline_state, &tmp_state, OFFLINE_DONE,
-                                                         false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST))
+                                                         true, __ATOMIC_SEQ_CST, __ATOMIC_RELAXED))
                                 continue;
                         }
                         _fallthrough_;
@@ -253,7 +253,7 @@ static void * journal_file_set_offline_thread(void *arg) {
 /* Trigger a restart if the offline thread is mid-flight in a restartable state. */
 static bool journal_file_set_offline_try_restart(JournalFile *f) {
         for (;;) {
-                switch (f->offline_state) {
+                switch (__atomic_load_n(f->offline_state, __ATOMIC_SEQ_CST)) {
                 case OFFLINE_AGAIN_FROM_SYNCING:
                 case OFFLINE_AGAIN_FROM_OFFLINING:
                         return true;
@@ -261,7 +261,7 @@ static bool journal_file_set_offline_try_restart(JournalFile *f) {
                 case OFFLINE_CANCEL: {
                         OfflineState tmp_state = OFFLINE_CANCEL;
                         if (!__atomic_compare_exchange_n(&f->offline_state, &tmp_state, OFFLINE_AGAIN_FROM_SYNCING,
-                                                         false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST))
+                                                         true, __ATOMIC_SEQ_CST, __ATOMIC_RELAXED))
                                 continue;
                         }
                         return true;
@@ -269,7 +269,7 @@ static bool journal_file_set_offline_try_restart(JournalFile *f) {
                 case OFFLINE_SYNCING: {
                         OfflineState tmp_state = OFFLINE_SYNCING;
                         if (!__atomic_compare_exchange_n(&f->offline_state, &tmp_state, OFFLINE_AGAIN_FROM_SYNCING,
-                                                         false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST))
+                                                         true, __ATOMIC_SEQ_CST, __ATOMIC_RELAXED))
                                 continue;
                         }
                         return true;
@@ -277,7 +277,7 @@ static bool journal_file_set_offline_try_restart(JournalFile *f) {
                 case OFFLINE_OFFLINING: {
                         OfflineState tmp_state = OFFLINE_OFFLINING;
                         if (!__atomic_compare_exchange_n(&f->offline_state, &tmp_state, OFFLINE_AGAIN_FROM_OFFLINING,
-                                                         false, __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST))
+                                                         true, __ATOMIC_SEQ_CST, __ATOMIC_RELAXED))
                                 continue;
                         }
                         return true;
