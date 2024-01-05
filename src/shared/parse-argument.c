@@ -10,7 +10,7 @@
 
 /* All functions in this file emit warnings. */
 
-int parse_boolean_argument(const char *optname, const char *s, bool *ret) {
+int parse_boolean_argument(const char * restrict optname, const char * restrict s, bool *ret) {
         int r;
 
         /* Returns the result through *ret and the return value. */
@@ -31,7 +31,7 @@ int parse_boolean_argument(const char *optname, const char *s, bool *ret) {
         }
 }
 
-int parse_json_argument(const char *s, JsonFormatFlags *ret) {
+int parse_json_argument(const char * restrict s, JsonFormatFlags *ret) {
         assert(s);
         assert(ret);
 
@@ -52,7 +52,7 @@ int parse_json_argument(const char *s, JsonFormatFlags *ret) {
         return 1; /* 1 means → properly parsed */
 }
 
-int parse_path_argument(const char *path, bool suppress_root, char **arg) {
+int parse_path_argument(const char * path, bool suppress_root, char **arg) {
         char *p;
         int r;
 

@@ -85,7 +85,8 @@ static int no_quit_on_interrupt(int exe_name_fd, const char *less_opts) {
 void pager_open(PagerFlags flags) {
         _cleanup_close_pair_ int fd[2] = EBADF_PAIR, exe_name_pipe[2] = EBADF_PAIR;
         _cleanup_strv_free_ char **pager_args = NULL;
-        const char * restrict pager, * restrict less_opts;
+        _cleanup_free_ char *l = NULL;
+        const char *pager, *less_opts;
         int r;
 
         if (flags & PAGER_DISABLE)
@@ -131,9 +132,10 @@ void pager_open(PagerFlags flags) {
         if (!less_opts)
                 less_opts = "FRSXMK";
         if (flags & PAGER_JUMP_TO_END) {
-                less_opts = strjoin(less_opts, " +G");
-                if (!less_opts)
+                l = strjoin(less_opts, " +G");
+                if (!l)
                         return (void) log_oom();
+                less_opts = l;
         }
 
         /* We set SIGINT as PR_DEATHSIG signal here, to match the "K" parameter we set in $LESS, which enables SIGINT behaviour. */

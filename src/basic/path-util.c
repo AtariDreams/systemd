@@ -83,13 +83,14 @@ int path_make_absolute_cwd(const char *p, char **ret) {
         if (path_is_absolute(p))
                 c = strdup(p);
         else {
-                _cleanup_free_ char *cwd = NULL;
+                char *cwd = NULL;
 
                 r = safe_getcwd(&cwd);
                 if (r < 0)
                         return r;
 
                 c = path_join(cwd, p);
+                freep(cwd);
         }
         if (!c)
                 return -ENOMEM;

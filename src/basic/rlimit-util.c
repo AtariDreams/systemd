@@ -371,7 +371,7 @@ int rlimit_copy_all(struct rlimit* target[static _RLIMIT_MAX], struct rlimit* co
         assert(target);
         assert(source);
 
-        for (int i = 0; i < _RLIMIT_MAX; i++) {
+        for (unsigned i = 0; i < _RLIMIT_MAX; i++) {
                 if (!source[i])
                         continue;
 
