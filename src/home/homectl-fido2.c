@@ -64,11 +64,11 @@ static int add_fido2_credential_id(
 
 static int add_fido2_salt(
                 JsonVariant **v,
-                const void *cid,
+                const void * restrict cid,
                 size_t cid_size,
-                const void *fido2_salt,
+                const void * restrict fido2_salt,
                 size_t fido2_salt_size,
-                const void *secret,
+                const void * restrict secret,
                 size_t secret_size,
                 Fido2EnrollFlags lock_with) {
 

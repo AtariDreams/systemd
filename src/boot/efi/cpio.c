@@ -303,19 +303,19 @@ static EFI_STATUS pack_cpio_trailer(
 
 EFI_STATUS pack_cpio(
                 EFI_LOADED_IMAGE_PROTOCOL *loaded_image,
-                const char16_t *dropin_dir,
-                const char16_t *match_suffix,
-                const char16_t *exclude_suffix,
+                const char16_t * restrict dropin_dir,
+                const char16_t * restrict match_suffix,
+                const char16_t * restrict exclude_suffix,
                 const char *target_dir_prefix,
                 uint32_t dir_mode,
                 uint32_t access_mode,
                 uint32_t tpm_pcr,
-                const char16_t *tpm_description,
+                const char16_t * restrict tpm_description,
                 void **ret_buffer,
                 size_t *ret_buffer_size,
                 bool *ret_measured) {
 
-        _cleanup_(file_closep) EFI_FILE *root = NULL, *extra_dir = NULL;
+        _cleanup_(file_closep) EFI_FILE * restrict root = NULL, * restrict extra_dir = NULL;
         size_t dirent_size = 0, buffer_size = 0, n_items = 0, n_allocated = 0;
         _cleanup_free_ char16_t *rel_dropin_dir = NULL;
         _cleanup_free_ EFI_FILE_INFO *dirent = NULL;

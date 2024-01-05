@@ -86,7 +86,7 @@ int openssl_digest_size(const char *digest_alg, size_t *ret_digest_size) {
 /* Calculate the digest hash value for the provided data, using the specified digest algorithm. Returns 0 on
  * success, -EOPNOTSUPP if the digest algorithm is not supported, or < 0 for any other error. */
 int openssl_digest_many(
-                const char *digest_alg,
+                const char * restrict digest_alg,
                 const struct iovec data[],
                 size_t n_data,
                 void **ret_digest,
@@ -145,8 +145,8 @@ int openssl_digest_many(
  * algorithm. Returns 0 on success, -EOPNOTSUPP if the digest algorithm is not supported, or < 0 for any
  * other error. */
 int openssl_hmac_many(
-                const char *digest_alg,
-                const void *key,
+                const char * restrict digest_alg,
+                const void * restrict key,
                 size_t key_size,
                 const struct iovec data[],
                 size_t n_data,
@@ -244,12 +244,12 @@ int openssl_hmac_many(
  * buffer of zeroes is used. Returns 0 on success, -EOPNOTSUPP if the cipher algorithm is not supported, or <
  * 0 on any other error. */
 int openssl_cipher_many(
-                const char *alg,
+                const char * restrict alg,
                 size_t bits,
-                const char *mode,
-                const void *key,
+                const char * restrict mode,
+                const void * restrict key,
                 size_t key_size,
-                const void *iv,
+                const void * restrict iv,
                 size_t iv_size,
                 const struct iovec data[],
                 size_t n_data,
@@ -344,12 +344,12 @@ int openssl_cipher_many(
  *
  * For more details see: https://www.openssl.org/docs/manmaster/man7/EVP_KDF-SS.html */
 int kdf_ss_derive(
-                const char *digest,
-                const void *key,
+                const char * restrict digest,
+                const void * restrict key,
                 size_t key_size,
-                const void *salt,
+                const void * restrict salt,
                 size_t salt_size,
-                const void *info,
+                const void *restrict info,
                 size_t info_size,
                 size_t derive_size,
                 void **ret) {
@@ -411,15 +411,15 @@ int kdf_ss_derive(
  *
  * For more details see: https://www.openssl.org/docs/manmaster/man7/EVP_KDF-KB.html */
 int kdf_kb_hmac_derive(
-                const char *mode,
-                const char *digest,
-                const void *key,
+                const char * restrict mode,
+                const char * restrict digest,
+                const void * restrict key,
                 size_t key_size,
-                const void *salt,
+                const void * restrict salt,
                 size_t salt_size,
-                const void *info,
+                const void * restrict info,
                 size_t info_size,
-                const void *seed,
+                const void * restrict seed,
                 size_t seed_size,
                 size_t derive_size,
                 void **ret) {
@@ -493,9 +493,9 @@ int kdf_kb_hmac_derive(
 
 int rsa_encrypt_bytes(
                 EVP_PKEY *pkey,
-                const void *decrypted_key,
+                const void * restrict decrypted_key,
                 size_t decrypted_key_size,
-                void **ret_encrypt_key,
+                void ** restrict ret_encrypt_key,
                 size_t *ret_encrypt_key_size) {
 
         _cleanup_(EVP_PKEY_CTX_freep) EVP_PKEY_CTX *ctx = NULL;
@@ -1102,9 +1102,9 @@ int digest_and_sign(
 
 #  if PREFER_OPENSSL
 int string_hashsum(
-                const char *s,
+                const char * restrict s,
                 size_t len,
-                const char *md_algorithm,
+                const char * restrict md_algorithm,
                 char **ret) {
 
         _cleanup_free_ void *hash = NULL;
@@ -1131,10 +1131,10 @@ int string_hashsum(
 
 static int ecc_pkey_generate_volume_keys(
                 EVP_PKEY *pkey,
-                void **ret_decrypted_key,
-                size_t *ret_decrypted_key_size,
-                void **ret_saved_key,
-                size_t *ret_saved_key_size) {
+                void ** restrict ret_decrypted_key,
+                size_t * restrict ret_decrypted_key_size,
+                void ** restrict ret_saved_key,
+                size_t * restrict ret_saved_key_size) {
 
         _cleanup_(EVP_PKEY_freep) EVP_PKEY *pkey_new = NULL;
         _cleanup_(erase_and_freep) void *decrypted_key = NULL;
@@ -1220,10 +1220,10 @@ static int ecc_pkey_generate_volume_keys(
 
 static int rsa_pkey_generate_volume_keys(
                 EVP_PKEY *pkey,
-                void **ret_decrypted_key,
-                size_t *ret_decrypted_key_size,
-                void **ret_saved_key,
-                size_t *ret_saved_key_size) {
+                void ** restrict ret_decrypted_key,
+                size_t * restrict ret_decrypted_key_size,
+                void ** restrictret_saved_key,
+                size_t * restrict ret_saved_key_size) {
 
         _cleanup_(erase_and_freep) void *decrypted_key = NULL;
         _cleanup_free_ void *saved_key = NULL;
@@ -1257,10 +1257,10 @@ static int rsa_pkey_generate_volume_keys(
 
 int x509_generate_volume_keys(
                 X509 *cert,
-                void **ret_decrypted_key,
-                size_t *ret_decrypted_key_size,
-                void **ret_saved_key,
-                size_t *ret_saved_key_size) {
+                void ** restrict ret_decrypted_key,
+                size_t * restrict ret_decrypted_key_size,
+                void ** restrict ret_saved_key,
+                size_t * restrict ret_saved_key_size) {
 
         assert(cert);
         assert(ret_decrypted_key);

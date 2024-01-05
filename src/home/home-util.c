@@ -69,7 +69,7 @@ bool supported_fstype(const char *fstype) {
         return STR_IN_SET(fstype, "ext4", "btrfs", "xfs");
 }
 
-int split_user_name_realm(const char *t, char **ret_user_name, char **ret_realm) {
+int split_user_name_realm(const char *t, char * restrict *ret_user_name, char * restrict *ret_realm) {
         _cleanup_free_ char *user_name = NULL, *realm = NULL;
         const char *c;
         int r;

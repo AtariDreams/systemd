@@ -13,8 +13,8 @@
 static int add_pkcs11_encrypted_key(
                 JsonVariant **v,
                 const char *uri,
-                const void *encrypted_key, size_t encrypted_key_size,
-                const void *decrypted_key, size_t decrypted_key_size) {
+                const void * restrict encrypted_key, size_t encrypted_key_size,
+                const void * restrict decrypted_key, size_t decrypted_key_size) {
 
         _cleanup_(json_variant_unrefp) JsonVariant *l = NULL, *w = NULL, *e = NULL;
         _cleanup_(erase_and_freep) char *base64_encoded = NULL, *hashed = NULL;
