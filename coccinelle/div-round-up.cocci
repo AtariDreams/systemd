@@ -19,3 +19,9 @@ expression x, y;
 @@
 - (x + (y - 1)) / y
 + DIV_ROUND_UP(x, y)
+
+@@
+expression x, y;
+@@
+- (x + y) / y + 1
++ DIV_ROUND_UP(x, y)
