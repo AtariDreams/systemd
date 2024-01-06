@@ -2302,7 +2302,7 @@ static int show_all(
 
         _cleanup_(sd_bus_message_unrefp) sd_bus_message *reply = NULL;
         _cleanup_free_ UnitInfo *unit_infos = NULL;
-        unsigned c;
+        size_t c;
         int r, ret = 0;
 
         r = get_unit_list(bus, NULL, NULL, &unit_infos, 0, &reply);
@@ -2311,7 +2311,7 @@ static int show_all(
 
         pager_open(arg_pager_flags);
 
-        c = (unsigned) r;
+        c = (size_t) r;
 
         typesafe_qsort(unit_infos, c, unit_info_compare);
 

@@ -46,7 +46,7 @@ static int uid_range_entry_compare(const UidRangeEntry *a, const UidRangeEntry *
 static void uid_range_coalesce(UidRange *range) {
         assert(range);
 
-        if (range->n_entries <= 0)
+        if (range->n_entries == 0)
                 return;
 
         typesafe_qsort(range->entries, range->n_entries, uid_range_entry_compare);

@@ -432,7 +432,7 @@ int catalog_update(const char* database, const char* root, const char* const* di
         ssize_t offset;
         char *payload;
         CatalogItem *i;
-        unsigned n;
+        size_t n;
         int r;
         int64_t sz;
 

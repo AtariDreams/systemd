@@ -1828,7 +1828,8 @@ static int manager_rebalance_calculate(Manager *m) {
         _cleanup_free_ Home **array = NULL;
         bool relevant = false;
         struct statfs sfs;
-        int c = 0, r;
+        size_t c = 0;
+        int r;
         Home *h;
 
         assert(m);
@@ -1903,7 +1904,7 @@ static int manager_rebalance_calculate(Manager *m) {
          * way for the same parameters. */
         typesafe_qsort(array, c, home_cmp);
 
-        for (int i = 0; i < c; i++) {
+        for (size_t i = 0; i < c; i++) {
                 uint64_t new_free;
                 double d;
 
