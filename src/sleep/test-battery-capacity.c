@@ -22,7 +22,7 @@ TEST(fetch_batteries_capacity_by_name) {
                 log_info("Battery %s: capacity = %i", name, get_capacity_by_name(capacity, name));
         }
 
-        for (int i = 0; i < 2; i++) {
+        for (unsigned i = 0; i < 2; i++) {
                 usec_t interval;
 
                 if (i > 0)
@@ -30,7 +30,7 @@ TEST(fetch_batteries_capacity_by_name) {
 
                 r = get_total_suspend_interval(capacity, &interval);
                 assert_se(r >= 0 || r == -ENOENT);
-                log_info("%d: get_total_suspend_interval: %s", i,
+                log_info("%u: get_total_suspend_interval: %s", i,
                          r < 0 ? STRERROR(r) : FORMAT_TIMESPAN(interval, USEC_PER_SEC));
         }
 }

@@ -119,7 +119,7 @@ int verb_syscall_filters(int argc, char *argv[], void *userdata) {
                 if (!arg_quiet)
                         k = load_kernel_syscalls(&kernel);
 
-                for (int i = 0; i < _SYSCALL_FILTER_SET_MAX; i++) {
+                for (size_t i = 0; i < _SYSCALL_FILTER_SET_MAX; i++) {
                         const SyscallFilterSet *set = syscall_filter_sets + i;
                         if (!first)
                                 puts("");

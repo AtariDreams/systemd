@@ -175,7 +175,6 @@ static int status_variables(void) {
                 (void) print_efi_option(options[i], &n_printed, /* in_order= */ false);
 
         next_option:
-                continue;
         }
 
         if (n_printed == 0)

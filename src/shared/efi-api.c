@@ -425,7 +425,7 @@ static int boot_id_hex(const char s[static 4]) {
 
         assert(s);
 
-        for (int i = 0; i < 4; i++)
+        for (unsigned i = 0; i < 4; i++)
                 if (s[i] >= '0' && s[i] <= '9')
                         id |= (s[i] - '0') << (3 - i) * 4;
                 else if (s[i] >= 'A' && s[i] <= 'F')

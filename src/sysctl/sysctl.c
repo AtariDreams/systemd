@@ -463,7 +463,7 @@ static int run(int argc, char *argv[]) {
         if (argc > optind) {
                 r = 0;
 
-                for (int i = optind; i < argc; i++)
+                for (unsigned i = optind; i < argc; i++)
                         RET_GATHER(r, parse_file(&sysctl_options, argv[i], false));
 
         } else {

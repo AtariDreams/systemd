@@ -21,7 +21,7 @@ static int load_available_kernel_filesystems(Set **ret) {
         if (r < 0)
                 return r;
 
-        for (int i = 0;;) {
+        for (size_t i = 0;;) {
                 _cleanup_free_ char *line = NULL;
                 const char *p;
 

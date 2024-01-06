@@ -191,7 +191,7 @@ int lsm_bpf_restrict_filesystems(const Set *filesystems, uint64_t cgroup_id, int
 
                 log_debug("bpf-lsm: Restricting filesystem access to '%s'", fs);
 
-                for (int i = 0; i < FILESYSTEM_MAGIC_MAX; i++) {
+                for (unsigned i = 0; i < FILESYSTEM_MAGIC_MAX; i++) {
                         if (magic[i] == 0)
                                 break;
 
