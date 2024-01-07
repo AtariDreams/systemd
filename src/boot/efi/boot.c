@@ -573,13 +573,13 @@ static void print_status(Config *config, char16_t *loaded_image_path) {
 
         for (size_t i = 0; i < config->n_entries; i++) {
                 BootEntry *entry = config->entries[i];
-                EFI_DEVICE_PATH *dp = NULL;
+                void *dp = NULL;
                 _cleanup_free_ char16_t *dp_str = NULL;
 
                 if (entry->device &&
                     BS->HandleProtocol(entry->device, MAKE_GUID_PTR(EFI_DEVICE_PATH_PROTOCOL), &dp) ==
                                     EFI_SUCCESS)
-                        (void) device_path_to_str(dp, &dp_str);
+                        (void) device_path_to_str((EFI_DEVICE_PATH *) dp, &dp_str);
 
                 printf("    boot entry: %zu/%zu\n", i + 1, config->n_entries);
                 printf("            id: %ls\n", entry->id);
