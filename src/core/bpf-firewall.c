@@ -873,14 +873,20 @@ int bpf_firewall_supported(void) {
          * CONFIG_CGROUP_BPF is turned off, then the call will fail early with EINVAL. If it is turned on the
          * parameters are validated however, and that'll fail with EBADF then. */
 
+
+        zero(attr);
+
+        attr = (union bpf_attr) {
+                .attach_type = BPF_CGROUP_INET_EGRESS,
+                .target_fd = -EBADF,
+                .attach_bpf_fd = -EBADF,
+        };
+
         // FIXME: Clang doesn't 0-pad with structured initialization, causing
         // the kernel to reject the bpf_attr as invalid. See:
         // https://github.com/torvalds/linux/blob/v5.9/kernel/bpf/syscall.c#L65
         // Ideally it should behave like GCC, so that we can remove these workarounds.
-        zero(attr);
-        attr.attach_type = BPF_CGROUP_INET_EGRESS;
-        attr.target_fd = -EBADF;
-        attr.attach_bpf_fd = -EBADF;
+        __builtin_clear_padding(&addr);
 
         if (bpf(BPF_PROG_DETACH, &attr, sizeof(attr)) < 0) {
                 if (errno != EBADF) {
@@ -905,11 +911,14 @@ int bpf_firewall_supported(void) {
          * Use probe result as the indicator that program name is also supported since they both were
          * added in kernel 4.15. */
 
-        zero(attr);
-        attr.attach_type = BPF_CGROUP_INET_EGRESS;
-        attr.target_fd = -EBADF;
-        attr.attach_bpf_fd = -EBADF;
-        attr.attach_flags = BPF_F_ALLOW_MULTI;
+        attr = (union bpf_attr) {
+                .attach_type = BPF_CGROUP_INET_EGRESS,
+                .target_fd = -EBADF,
+                .attach_bpf_fd = -EBADF,
+                .attach_flags = BPF_F_ALLOW_MULTI,
+        };
+
+        __builtin_clear_padding(&addr);
 
         if (bpf(BPF_PROG_ATTACH, &attr, sizeof(attr)) < 0) {
                 if (errno == EBADF) {
