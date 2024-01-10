@@ -120,10 +120,10 @@ char16_t *hexdump(const void *data, size_t size);
 #  define _gnu_printf_(a, b) __attribute__((format(gnu_printf, a, b)))
 #endif
 
-_gnu_printf_(2, 3) void printf_status(EFI_STATUS status, const char *format, ...);
-_gnu_printf_(2, 0) void vprintf_status(EFI_STATUS status, const char *format, va_list ap);
-_gnu_printf_(2, 3) _warn_unused_result_ char16_t *xasprintf_status(EFI_STATUS status, const char *format, ...);
-_gnu_printf_(2, 0) _warn_unused_result_ char16_t *xvasprintf_status(EFI_STATUS status, const char *format, va_list ap);
+_gnu_printf_(2, 3) void printf_status(EFI_STATUS status, const char * restrict format, ...);
+_gnu_printf_(2, 0) void vprintf_status(EFI_STATUS status, const char * restrict format, va_list ap);
+_gnu_printf_(2, 3) _warn_unused_result_ char16_t *xasprintf_status(EFI_STATUS status, const char * restrict format, ...);
+_gnu_printf_(2, 0) _warn_unused_result_ char16_t *xvasprintf_status(EFI_STATUS status, const char * restrict format, va_list ap);
 
 #if SD_BOOT
 #  define printf(...) printf_status(EFI_SUCCESS, __VA_ARGS__)

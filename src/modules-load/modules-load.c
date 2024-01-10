@@ -24,7 +24,7 @@ static const char conf_file_dirs[] = CONF_PATHS_NULSTR("modules-load.d");
 STATIC_DESTRUCTOR_REGISTER(arg_proc_cmdline_modules, strv_freep);
 
 static void systemd_kmod_log(void *data, int priority, const char *file, int line,
-                             const char *fn, const char *format, va_list args) {
+                             const char *fn, const char * restrict format, va_list args) {
 
         DISABLE_WARNING_FORMAT_NONLITERAL;
         log_internalv(priority, 0, file, line, fn, format, args);

@@ -206,7 +206,7 @@ struct Server {
 #define N_IOVEC_AUDIT_FIELDS 64
 
 void server_dispatch_message(Server *s, struct iovec *iovec, size_t n, size_t m, ClientContext *c, const struct timeval *tv, int priority, pid_t object_pid);
-void server_driver_message(Server *s, pid_t object_pid, const char *message_id, const char *format, ...) _sentinel_ _printf_(4,0);
+void server_driver_message(Server *s, pid_t object_pid, const char *message_id, const char * restrict format, ...) _sentinel_ _printf_(4,0);
 
 /* gperf lookup function */
 const struct ConfigPerfItem* journald_gperf_lookup(const char *key, GPERF_LEN_TYPE length);

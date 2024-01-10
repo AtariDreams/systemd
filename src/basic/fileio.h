@@ -66,7 +66,7 @@ static inline int write_string_file(const char *fn, const char *line, WriteStrin
         return write_string_file_ts(fn, line, flags, NULL);
 }
 
-int write_string_filef(const char *fn, WriteStringFileFlags flags, const char *format, ...) _printf_(3, 4);
+int write_string_filef(const char *fn, WriteStringFileFlags flags, const char * restrict format, ...) _printf_(3, 4);
 
 int read_one_line_file_at(int dir_fd, const char *filename, char **ret);
 static inline int read_one_line_file(const char *filename, char **ret) {

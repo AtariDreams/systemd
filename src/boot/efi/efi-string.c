@@ -902,7 +902,7 @@ static bool handle_format_specifier(FormatContext *ctx, SpecifierContext *sp) {
  *  - %p will also use "(null)"
  *  - The provided EFI_STATUS is used for %m instead of errno
  *  - "\n" is translated to "\r\n" */
-_printf_(2, 0) static char16_t *printf_internal(EFI_STATUS status, const char *format, va_list ap, bool ret) {
+_printf_(2, 0) static char16_t *printf_internal(EFI_STATUS status, const char * restrict format, va_list ap, bool ret) {
         assert(format);
 
         FormatContext ctx = {
@@ -961,18 +961,18 @@ _printf_(2, 0) static char16_t *printf_internal(EFI_STATUS status, const char *f
         return mfree(ctx.dyn_buf);
 }
 
-void printf_status(EFI_STATUS status, const char *format, ...) {
+void printf_status(EFI_STATUS status, const char * restrict format, ...) {
         va_list ap;
         va_start(ap, format);
         printf_internal(status, format, ap, false);
         va_end(ap);
 }
 
-void vprintf_status(EFI_STATUS status, const char *format, va_list ap) {
+void vprintf_status(EFI_STATUS status, const char * restrict format, va_list ap) {
         printf_internal(status, format, ap, false);
 }
 
-char16_t *xasprintf_status(EFI_STATUS status, const char *format, ...) {
+char16_t *xasprintf_status(EFI_STATUS status, const char * restrict format, ...) {
         va_list ap;
         va_start(ap, format);
         char16_t *ret = printf_internal(status, format, ap, true);
@@ -980,7 +980,7 @@ char16_t *xasprintf_status(EFI_STATUS status, const char *format, ...) {
         return ret;
 }
 
-char16_t *xvasprintf_status(EFI_STATUS status, const char *format, va_list ap) {
+char16_t *xvasprintf_status(EFI_STATUS status, const char * restrict format, va_list ap) {
         return printf_internal(status, format, ap, true);
 }
 

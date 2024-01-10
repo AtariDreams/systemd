@@ -98,7 +98,7 @@ void close_journal_fd(void) {
 #endif
 }
 
-_public_ int sd_journal_print(int priority, const char *format, ...) {
+_public_ int sd_journal_print(int priority, const char * restrict format, ...) {
         int r;
         va_list ap;
 
@@ -109,7 +109,7 @@ _public_ int sd_journal_print(int priority, const char *format, ...) {
         return r;
 }
 
-_public_ int sd_journal_printv(int priority, const char *format, va_list ap) {
+_public_ int sd_journal_printv(int priority, const char * restrict format, va_list ap) {
         char p[STRLEN("PRIORITY=") + DECIMAL_STR_MAX(int) + 1];
         char sbuf[LINE_MAX + 8] = "MESSAGE=";
         struct iovec iov[2];
@@ -151,7 +151,7 @@ _public_ int sd_journal_printv(int priority, const char *format, va_list ap) {
 }
 
 _printf_(1, 0) static int fill_iovec_sprintf(
-                const char *format,
+                const char * restrict format,
                 va_list ap,
                 size_t extra,
                 struct iovec **ret_iov,
@@ -199,7 +199,7 @@ _printf_(1, 0) static int fill_iovec_sprintf(
         return 0;
 }
 
-_public_ int sd_journal_send(const char *format, ...) {
+_public_ int sd_journal_send(const char * restrict format, ...) {
         struct iovec *iov = NULL;
         size_t n_iov = 0;
         va_list ap;
@@ -446,7 +446,7 @@ _public_ int sd_journal_stream_fd(const char *identifier, int priority, int leve
         return TAKE_FD(fd);
 }
 
-_public_ int sd_journal_print_with_location(int priority, const char *file, const char *line, const char *func, const char *format, ...) {
+_public_ int sd_journal_print_with_location(int priority, const char *file, const char *line, const char *func, const char * restrict format, ...) {
         int r;
         va_list ap;
 
@@ -457,7 +457,7 @@ _public_ int sd_journal_print_with_location(int priority, const char *file, cons
         return r;
 }
 
-_public_ int sd_journal_printv_with_location(int priority, const char *file, const char *line, const char *func, const char *format, va_list ap) {
+_public_ int sd_journal_printv_with_location(int priority, const char *file, const char *line, const char *func, const char * restrict format, va_list ap) {
         char p[STRLEN("PRIORITY=") + DECIMAL_STR_MAX(int) + 1];
         char sbuf[LINE_MAX + 8] = "MESSAGE=";
         struct iovec iov[5];
@@ -507,7 +507,7 @@ _public_ int sd_journal_printv_with_location(int priority, const char *file, con
         return sd_journal_sendv(iov, ELEMENTSOF(iov));
 }
 
-_public_ int sd_journal_send_with_location(const char *file, const char *line, const char *func, const char *format, ...) {
+_public_ int sd_journal_send_with_location(const char *file, const char *line, const char *func, const char * restrict format, ...) {
         struct iovec *iov = NULL;
         size_t n_iov = 0;
         va_list ap;

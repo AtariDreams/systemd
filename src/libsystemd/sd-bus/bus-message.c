@@ -682,7 +682,7 @@ _public_ int sd_bus_message_new_method_errorf(
                 sd_bus_message *call,
                 sd_bus_message **m,
                 const char *name,
-                const char *format,
+                const char * restrict format,
                 ...) {
 
         _cleanup_(sd_bus_error_free) sd_bus_error error = SD_BUS_ERROR_NULL;
@@ -718,7 +718,7 @@ _public_ int sd_bus_message_new_method_errnof(
                 sd_bus_message *call,
                 sd_bus_message **m,
                 int error,
-                const char *format,
+                const char * restrict format,
                 ...) {
 
         _cleanup_(sd_bus_error_free) sd_bus_error berror = SD_BUS_ERROR_NULL;

@@ -7,5 +7,5 @@
 int install_name_printf(
                 RuntimeScope scope,
                 const InstallInfo *info,
-                const char *format,
+                const char * restrict format,
                 char **ret);

@@ -73,7 +73,7 @@ int write_drop_in(const char *dir, const char *unit, unsigned level,
 }
 
 int write_drop_in_format(const char *dir, const char *unit, unsigned level,
-                         const char *name, const char *format, ...) {
+                         const char *name, const char * restrict format, ...) {
         _cleanup_free_ char *p = NULL;
         va_list ap;
         int r;

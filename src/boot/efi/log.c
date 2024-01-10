@@ -32,7 +32,7 @@ void efi_assert(const char *expr, const char *file, unsigned line, const char *f
         freeze();
 }
 
-EFI_STATUS log_internal(EFI_STATUS status, const char *format, ...) {
+EFI_STATUS log_internal(EFI_STATUS status, const char * restrict format, ...) {
         assert(format);
 
         int32_t attr = ST->ConOut->Mode->Attribute;

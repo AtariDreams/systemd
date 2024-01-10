@@ -912,7 +912,7 @@ char *strextend_with_separator_internal(char **x, const char *separator, ...) {
         return p;
 }
 
-int strextendf_with_separator(char **x, const char *separator, const char *format, ...) {
+int strextendf_with_separator(char **x, const char *separator, const char * restrict format, ...) {
         size_t m, a, l_separator;
         va_list ap;
         int l;

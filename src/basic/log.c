@@ -851,7 +851,7 @@ int log_internalv(
                 const char *file,
                 int line,
                 const char *func,
-                const char *format,
+                const char * restrict format,
                 va_list ap) {
 
         if (_likely_(LOG_PRI(level) > log_max_level))
@@ -872,7 +872,7 @@ int log_internal(
                 const char *file,
                 int line,
                 const char *func,
-                const char *format, ...) {
+                const char * restrict format, ...) {
 
         va_list ap;
         int r;
@@ -894,7 +894,7 @@ int log_object_internalv(
                 const char *object,
                 const char *extra_field,
                 const char *extra,
-                const char *format,
+                const char * restrict format,
                 va_list ap) {
 
         char *buffer, *b;
@@ -924,7 +924,7 @@ int log_object_internal(
                 const char *object,
                 const char *extra_field,
                 const char *extra,
-                const char *format, ...) {
+                const char * restrict format, ...) {
 
         va_list ap;
         int r;
@@ -942,7 +942,7 @@ static void log_assert(
                 const char *file,
                 int line,
                 const char *func,
-                const char *format) {
+                const char * restrict format) {
 
         static char buffer[LINE_MAX];
 
@@ -1001,7 +1001,7 @@ int log_format_iovec(
                 size_t *n,
                 bool newline_separator,
                 int error,
-                const char *format,
+                const char * restrict format,
                 va_list ap) {
 
         static const char nl = '\n';
@@ -1042,7 +1042,7 @@ int log_struct_internal(
                 const char *file,
                 int line,
                 const char *func,
-                const char *format, ...) {
+                const char * restrict format, ...) {
 
         char buf[LINE_MAX];
         bool found = false;
@@ -1513,7 +1513,7 @@ int log_syntax_internal(
                 const char *file,
                 int line,
                 const char *func,
-                const char *format, ...) {
+                const char * restrict format, ...) {
 
         PROTECT_ERRNO;
 

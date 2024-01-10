@@ -214,7 +214,7 @@ bool contains_instance_specifier_superset(const char *s) {
 }
 
 /* `name` is the rendered version of `format` via `unit_printf` or similar functions. */
-int unit_is_likely_recursive_template_dependency(Unit *u, const char *name, const char *format) {
+int unit_is_likely_recursive_template_dependency(Unit *u, const char *name, const char * restrict format) {
         const char *fragment_path;
         int r;
 

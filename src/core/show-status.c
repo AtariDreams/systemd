@@ -36,7 +36,7 @@ int parse_show_status(const char *v, ShowStatus *ret) {
         return 0;
 }
 
-int status_vprintf(const char *status, ShowStatusFlags flags, const char *format, va_list ap) {
+int status_vprintf(const char *status, ShowStatusFlags flags, const char * restrict format, va_list ap) {
         static const char status_indent[] = "         "; /* "[" STATUS "] " */
         _cleanup_free_ char *s = NULL;
         _cleanup_close_ int fd = -EBADF;
@@ -106,7 +106,7 @@ int status_vprintf(const char *status, ShowStatusFlags flags, const char *format
         return 0;
 }
 
-int status_printf(const char *status, ShowStatusFlags flags, const char *format, ...) {
+int status_printf(const char *status, ShowStatusFlags flags, const char * restrict format, ...) {
         va_list ap;
         int r;
 

@@ -269,7 +269,7 @@ int sd_notify(int unset_environment, const char *state);
 
   See sd_notifyf(3) for more information.
 */
-int sd_notifyf(int unset_environment, const char *format, ...) _sd_printf_(2,3);
+int sd_notifyf(int unset_environment, const char * restrict format, ...) _sd_printf_(2,3);
 
 /*
   Similar to sd_notify(), but send the message on behalf of another
@@ -281,7 +281,7 @@ int sd_pid_notify(pid_t pid, int unset_environment, const char *state);
   Similar to sd_notifyf(), but send the message on behalf of another
   process, if the appropriate permissions are available.
 */
-int sd_pid_notifyf(pid_t pid, int unset_environment, const char *format, ...) _sd_printf_(3,4);
+int sd_pid_notifyf(pid_t pid, int unset_environment, const char * restrict format, ...) _sd_printf_(3,4);
 
 /*
   Similar to sd_pid_notify(), but also passes the specified fd array
@@ -293,7 +293,7 @@ int sd_pid_notify_with_fds(pid_t pid, int unset_environment, const char *state, 
 /*
   Combination of sd_pid_notifyf() and sd_pid_notify_with_fds()
 */
-int sd_pid_notifyf_with_fds(pid_t pid, int unset_environment, const int *fds, size_t n_fds, const char *format, ...) _sd_printf_(5,6);
+int sd_pid_notifyf_with_fds(pid_t pid, int unset_environment, const int *fds, size_t n_fds, const char * restrict format, ...) _sd_printf_(5,6);
 
 /*
   Returns > 0 if synchronization with systemd succeeded.  Returns < 0

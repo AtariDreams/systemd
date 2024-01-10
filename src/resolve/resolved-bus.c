@@ -73,7 +73,7 @@ static sd_bus_message *dns_query_steal_request(DnsQuery *q) {
 _sd_printf_(3, 4) static int reply_method_errorf(
                 DnsQuery *query,
                 const char *error_name,
-                const char *format,
+                const char * restrict format,
                 ...) {
 
         _cleanup_(sd_bus_message_unrefp) sd_bus_message *req = NULL;
@@ -97,7 +97,7 @@ _sd_printf_(3, 4) static int reply_method_errorf(
 _sd_printf_(3, 4) static int reply_method_errnof(
                 DnsQuery *query,
                 int err,
-                const char *format,
+                const char * restrict format,
                 ...) {
 
         _cleanup_(sd_bus_message_unrefp) sd_bus_message *req = NULL;

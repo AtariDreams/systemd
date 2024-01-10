@@ -16,7 +16,7 @@ void (*sym_xkb_context_set_log_fn)(
                 void (*log_fn)(
                         struct xkb_context *context,
                         enum xkb_log_level level,
-                        const char *format,
+                        const char * restrict format,
                         va_list args));
 struct xkb_keymap* (*sym_xkb_keymap_new_from_names)(
                 struct xkb_context *context,
@@ -35,7 +35,7 @@ static int dlopen_xkbcommon(void) {
 }
 
 _printf_(3, 0)
-static void log_xkb(struct xkb_context *ctx, enum xkb_log_level lvl, const char *format, va_list args) {
+static void log_xkb(struct xkb_context *ctx, enum xkb_log_level lvl, const char * restrict format, va_list args) {
         const char *fmt;
 
         fmt = strjoina("libxkbcommon: ", format);

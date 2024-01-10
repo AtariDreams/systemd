@@ -126,7 +126,7 @@ _public_ void udev_set_log_fn(
                         struct udev *udev,
                         void (*log_fn)(struct udev *udev,
                                        int priority, const char *file, int line, const char *fn,
-                                       const char *format, va_list args)) {
+                                       const char * restrict format, va_list args)) {
         return;
 }
 

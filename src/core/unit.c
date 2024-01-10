@@ -1771,7 +1771,7 @@ fail:
 }
 
 _printf_(7, 8)
-static int log_unit_internal(void *userdata, int level, int error, const char *file, int line, const char *func, const char *format, ...) {
+static int log_unit_internal(void *userdata, int level, int error, const char *file, int line, const char *func, const char * restrict format, ...) {
         Unit *u = userdata;
         va_list ap;
         int r;
@@ -1842,7 +1842,7 @@ static bool unit_test_assert(Unit *u) {
         return u->assert_result;
 }
 
-void unit_status_printf(Unit *u, StatusType status_type, const char *status, const char *format, const char *ident) {
+void unit_status_printf(Unit *u, StatusType status_type, const char *status, const char * restrict format, const char *ident) {
         if (log_get_show_color()) {
                 if (u->manager->status_unit_format == STATUS_UNIT_FORMAT_COMBINED && strchr(ident, ' '))
                         ident = strjoina(ANSI_HIGHLIGHT, u->id, ANSI_NORMAL, " - ", u->description);
@@ -4627,7 +4627,7 @@ int unit_write_setting(Unit *u, UnitWriteFlags flags, const char *name, const ch
         return 0;
 }
 
-int unit_write_settingf(Unit *u, UnitWriteFlags flags, const char *name, const char *format, ...) {
+int unit_write_settingf(Unit *u, UnitWriteFlags flags, const char *name, const char * restrict format, ...) {
         _cleanup_free_ char *p = NULL;
         va_list ap;
         int r;

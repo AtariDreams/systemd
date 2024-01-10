@@ -205,7 +205,7 @@ int unit_name_printf(const Unit *u, const char* format, char **ret) {
         return specifier_printf(format, UNIT_NAME_MAX, table, NULL, u, ret);
 }
 
-int unit_full_printf_full(const Unit *u, const char *format, size_t max_length, char **ret) {
+int unit_full_printf_full(const Unit *u, const char * restrict format, size_t max_length, char **ret) {
         /* This is similar to unit_name_printf() but also supports unescaping. Also, adds a couple of
          * additional codes (which are likely not suitable for unescaped inclusion in unit names):
          *

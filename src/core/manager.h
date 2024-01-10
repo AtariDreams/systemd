@@ -594,7 +594,7 @@ void manager_set_switching_root(Manager *m, bool switching_root);
 
 double manager_get_progress(Manager *m);
 
-void manager_status_printf(Manager *m, StatusType type, const char *status, const char *format, ...) _printf_(4,5);
+void manager_status_printf(Manager *m, StatusType type, const char *status, const char * restrict format, ...) _printf_(4,5);
 
 Set* manager_get_units_needing_mounts_for(Manager *m, const char *path, UnitMountDependencyType t);
 

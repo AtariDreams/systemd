@@ -339,7 +339,7 @@ fail:
 int write_string_filef(
                 const char *fn,
                 WriteStringFileFlags flags,
-                const char *format, ...) {
+                const char * restrict format, ...) {
 
         _cleanup_free_ char *p = NULL;
         va_list ap;

@@ -4462,7 +4462,7 @@ static bool manager_should_show_status(Manager *m, StatusType type) {
         return manager_get_show_status_on(m);
 }
 
-void manager_status_printf(Manager *m, StatusType type, const char *status, const char *format, ...) {
+void manager_status_printf(Manager *m, StatusType type, const char *status, const char * restrict format, ...) {
         va_list ap;
 
         /* If m is NULL, assume we're after shutdown and let the messages through. */

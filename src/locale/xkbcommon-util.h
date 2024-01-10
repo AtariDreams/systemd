@@ -11,7 +11,7 @@ extern void (*sym_xkb_context_set_log_fn)(
                 void (*log_fn)(
                         struct xkb_context *context,
                         enum xkb_log_level level,
-                        const char *format,
+                        const char * restrict format,
                         va_list args));
 extern struct xkb_keymap* (*sym_xkb_keymap_new_from_names)(
                 struct xkb_context *context,

@@ -100,7 +100,7 @@ static int specifier_last_component(char specifier, const void *data, const char
 int install_name_printf(
                 RuntimeScope scope,
                 const InstallInfo *info,
-                const char *format,
+                const char * restrict format,
                 char **ret) {
         /* This is similar to unit_name_printf() */
 

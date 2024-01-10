@@ -959,7 +959,7 @@ int unit_add_blockdev_dependency(Unit *u, const char *what, UnitDependencyMask m
 int unit_coldplug(Unit *u);
 void unit_catchup(Unit *u);
 
-void unit_status_printf(Unit *u, StatusType status_type, const char *status, const char *format, const char *ident) _printf_(4, 0);
+void unit_status_printf(Unit *u, StatusType status_type, const char *status, const char * restrict format, const char *ident) _printf_(4, 0);
 
 bool unit_need_daemon_reload(Unit *u);
 
@@ -1004,7 +1004,7 @@ const char* unit_escape_setting(const char *s, UnitWriteFlags flags, char **buf)
 char* unit_concat_strv(char **l, UnitWriteFlags flags);
 
 int unit_write_setting(Unit *u, UnitWriteFlags flags, const char *name, const char *data);
-int unit_write_settingf(Unit *u, UnitWriteFlags mode, const char *name, const char *format, ...) _printf_(4,5);
+int unit_write_settingf(Unit *u, UnitWriteFlags mode, const char *name, const char * restrict format, ...) _printf_(4,5);
 
 int unit_kill_context(Unit *u, KillContext *c, KillOperation k, PidRef *main_pid, PidRef *control_pid, bool main_pid_alien);
 

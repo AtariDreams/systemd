@@ -5,9 +5,9 @@
 
 #include "sd-bus.h"
 
-int pam_syslog_errno(pam_handle_t *handle, int level, int error, const char *format, ...) _printf_(4,5);
+int pam_syslog_errno(pam_handle_t *handle, int level, int error, const char * restrict format, ...) _printf_(4,5);
 
-int pam_syslog_pam_error(pam_handle_t *handle, int level, int error, const char *format, ...) _printf_(4,5);
+int pam_syslog_pam_error(pam_handle_t *handle, int level, int error, const char * restrict format, ...) _printf_(4,5);
 
 /* Call pam_vsyslog if debug is enabled */
 #define pam_debug_syslog(handle, debug, fmt, ...) ({                    \

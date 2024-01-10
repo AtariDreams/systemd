@@ -648,7 +648,7 @@ _public_ int sd_notify(int unset_environment, const char *state) {
         return sd_pid_notify_with_fds(0, unset_environment, state, NULL, 0);
 }
 
-_public_ int sd_pid_notifyf(pid_t pid, int unset_environment, const char *format, ...) {
+_public_ int sd_pid_notifyf(pid_t pid, int unset_environment, const char * restrict format, ...) {
         _cleanup_free_ char *p = NULL;
         int r;
 
@@ -666,7 +666,7 @@ _public_ int sd_pid_notifyf(pid_t pid, int unset_environment, const char *format
         return sd_pid_notify(pid, unset_environment, p);
 }
 
-_public_ int sd_notifyf(int unset_environment, const char *format, ...) {
+_public_ int sd_notifyf(int unset_environment, const char * restrict format, ...) {
         _cleanup_free_ char *p = NULL;
         int r;
 
@@ -688,7 +688,7 @@ _public_ int sd_pid_notifyf_with_fds(
                 pid_t pid,
                 int unset_environment,
                 const int *fds, size_t n_fds,
-                const char *format, ...) {
+                const char * restrict format, ...) {
 
         _cleanup_free_ char *p = NULL;
         int r;

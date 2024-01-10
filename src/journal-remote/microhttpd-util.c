@@ -63,7 +63,7 @@ int mhd_respond_oom(struct MHD_Connection *connection) {
 int mhd_respondf(struct MHD_Connection *connection,
                  int error,
                  enum MHD_RequestTerminationCode code,
-                 const char *format, ...) {
+                 const char * restrict format, ...) {
 
         const char *fmt;
         char *m;

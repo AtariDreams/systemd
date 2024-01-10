@@ -110,7 +110,7 @@ int sd_device_get_trigger_uuid(sd_device *device, sd_id128_t *ret);
 int sd_device_get_sysattr_value(sd_device *device, const char *sysattr, const char **_value);
 
 int sd_device_set_sysattr_value(sd_device *device, const char *sysattr, const char *value);
-int sd_device_set_sysattr_valuef(sd_device *device, const char *sysattr, const char *format, ...) _sd_printf_(3, 4);
+int sd_device_set_sysattr_valuef(sd_device *device, const char *sysattr, const char * restrict format, ...) _sd_printf_(3, 4);
 int sd_device_trigger(sd_device *device, sd_device_action_t action);
 int sd_device_trigger_with_uuid(sd_device *device, sd_device_action_t action, sd_id128_t *ret_uuid);
 int sd_device_open(sd_device *device, int flags);

@@ -584,7 +584,7 @@ TEST(hexdump) {
         free(hex);
 }
 
-_printf_(1, 2) static void test_printf_one(const char *format, ...) {
+_printf_(1, 2) static void test_printf_one(const char * restrict format, ...) {
         va_list ap, ap_efi;
         va_start(ap, format);
         va_copy(ap_efi, ap);

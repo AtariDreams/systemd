@@ -282,7 +282,7 @@ _public_ int sd_bus_reply_method_error(
 _public_ int sd_bus_reply_method_errorfv(
                 sd_bus_message *call,
                 const char *name,
-                const char *format,
+                const char * restrict format,
                 va_list ap) {
 
         _cleanup_(sd_bus_error_free) sd_bus_error error = SD_BUS_ERROR_NULL;
@@ -307,7 +307,7 @@ _public_ int sd_bus_reply_method_errorfv(
 _public_ int sd_bus_reply_method_errorf(
                 sd_bus_message *call,
                 const char *name,
-                const char *format,
+                const char * restrict format,
                 ...) {
 
         va_list ap;
@@ -350,7 +350,7 @@ _public_ int sd_bus_reply_method_errno(
 _public_ int sd_bus_reply_method_errnofv(
                 sd_bus_message *call,
                 int error,
-                const char *format,
+                const char * restrict format,
                 va_list ap) {
 
         _cleanup_(sd_bus_error_free) sd_bus_error berror = SD_BUS_ERROR_NULL;
@@ -375,7 +375,7 @@ _public_ int sd_bus_reply_method_errnofv(
 _public_ int sd_bus_reply_method_errnof(
                 sd_bus_message *call,
                 int error,
-                const char *format,
+                const char * restrict format,
                 ...) {
 
         va_list ap;

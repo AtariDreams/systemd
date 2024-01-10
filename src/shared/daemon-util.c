@@ -21,7 +21,7 @@ static int notify_remove_fd_warn(const char *name) {
         return 0;
 }
 
-int notify_remove_fd_warnf(const char *format, ...) {
+int notify_remove_fd_warnf(const char * restrict format, ...) {
         _cleanup_free_ char *p = NULL;
         va_list ap;
         int r;
@@ -58,7 +58,7 @@ static int notify_push_fd(int fd, const char *name) {
         return sd_pid_notify_with_fds(0, /* unset_environment = */ false, state, &fd, 1);
 }
 
-int notify_push_fdf(int fd, const char *format, ...) {
+int notify_push_fdf(int fd, const char * restrict format, ...) {
         _cleanup_free_ char *name = NULL;
         va_list ap;
         int r;

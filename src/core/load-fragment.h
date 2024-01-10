@@ -6,7 +6,7 @@
 
 /* These functions are declared in the header to make them accessible to unit tests. */
 bool contains_instance_specifier_superset(const char *s);
-int unit_is_likely_recursive_template_dependency(Unit *u, const char *name, const char *format);
+int unit_is_likely_recursive_template_dependency(Unit *u, const char *name, const char * restrict format);
 
 /* Config-parsing helpers relevant only for sources under src/core/ */
 int parse_crash_chvt(const char *value, int *data);

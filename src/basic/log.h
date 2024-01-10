@@ -108,7 +108,7 @@ int log_internal(
                 const char *file,
                 int line,
                 const char *func,
-                const char *format, ...) _printf_(6,7);
+                const char * restrict format, ...) _printf_(6,7);
 
 int log_internalv(
                 int level,
@@ -116,7 +116,7 @@ int log_internalv(
                 const char *file,
                 int line,
                 const char *func,
-                const char *format,
+                const char * restrict format,
                 va_list ap) _printf_(6,0);
 
 int log_object_internalv(
@@ -129,7 +129,7 @@ int log_object_internalv(
                 const char *object,
                 const char *extra_field,
                 const char *extra,
-                const char *format,
+                const char * restrict format,
                 va_list ap) _printf_(10,0);
 
 int log_object_internal(
@@ -142,7 +142,7 @@ int log_object_internal(
                 const char *object,
                 const char *extra_field,
                 const char *extra,
-                const char *format, ...) _printf_(10,11);
+                const char * restrict format, ...) _printf_(10,11);
 
 int log_struct_internal(
                 int level,
@@ -150,7 +150,7 @@ int log_struct_internal(
                 const char *file,
                 int line,
                 const char *func,
-                const char *format, ...) _printf_(6,0) _sentinel_;
+                const char * restrict format, ...) _printf_(6,0) _sentinel_;
 
 int log_oom_internal(
                 int level,
@@ -164,7 +164,7 @@ int log_format_iovec(
                 size_t *n,
                 bool newline_separator,
                 int error,
-                const char *format,
+                const char * restrict format,
                 va_list ap) _printf_(6, 0);
 
 int log_struct_iovec_internal(
@@ -345,7 +345,7 @@ int log_syntax_internal(
                 const char *file,
                 int line,
                 const char *func,
-                const char *format, ...) _printf_(9, 10);
+                const char * restrict format, ...) _printf_(9, 10);
 
 int log_syntax_invalid_utf8_internal(
                 const char *unit,

@@ -691,7 +691,7 @@ void strv_print_full(char * const *l, const char *prefix) {
                 printf("%s%s\n", strempty(prefix), *s);
 }
 
-int strv_extendf(char ***l, const char *format, ...) {
+int strv_extendf(char ***l, const char * restrict format, ...) {
         va_list ap;
         char *x;
         int r;

@@ -321,7 +321,7 @@ static void log_event_truncated(
                 sd_device *dev,
                 UdevRuleToken *token,
                 const char *what,
-                const char *format,
+                const char * restrict format,
                 const char *key,
                 bool is_match) {
 

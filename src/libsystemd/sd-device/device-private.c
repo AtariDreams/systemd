@@ -47,7 +47,7 @@ int device_add_property(sd_device *device, const char *key, const char *value) {
         return 0;
 }
 
-int device_add_propertyf(sd_device *device, const char *key, const char *format, ...) {
+int device_add_propertyf(sd_device *device, const char *key, const char * restrict format, ...) {
         _cleanup_free_ char *value = NULL;
         va_list ap;
         int r;

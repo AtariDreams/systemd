@@ -53,7 +53,7 @@ int serialize_item_escaped(FILE *f, const char *key, const char *value) {
         return serialize_item(f, key, c);
 }
 
-int serialize_item_format(FILE *f, const char *key, const char *format, ...) {
+int serialize_item_format(FILE *f, const char *key, const char * restrict format, ...) {
         _cleanup_free_ char *allocated = NULL;
         char buf[256]; /* Something reasonably short that fits nicely on any stack (i.e. is considerably less
                         * than LONG_LINE_MAX (1MiB!) */

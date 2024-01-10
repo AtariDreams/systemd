@@ -361,7 +361,7 @@ static int write_dependency(
                 FILE *f,
                 const char *opts,
                 const char *filter,
-                const char *format) {
+                const char * restrict format) {
 
         _cleanup_strv_free_ char **names = NULL, **units = NULL;
         _cleanup_free_ char *res = NULL;

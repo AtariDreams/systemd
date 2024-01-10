@@ -236,7 +236,7 @@ _public_ int sd_bus_error_set(sd_bus_error *e, const char *name, const char *mes
         return -r;
 }
 
-_public_ int sd_bus_error_setfv(sd_bus_error *e, const char *name, const char *format, va_list ap) {
+_public_ int sd_bus_error_setfv(sd_bus_error *e, const char *name, const char * restrict format, va_list ap) {
         int r;
 
         if (!name)
@@ -269,7 +269,7 @@ _public_ int sd_bus_error_setfv(sd_bus_error *e, const char *name, const char *f
         return -r;
 }
 
-_public_ int sd_bus_error_setf(sd_bus_error *e, const char *name, const char *format, ...) {
+_public_ int sd_bus_error_setf(sd_bus_error *e, const char *name, const char * restrict format, ...) {
         int r;
 
         if (format) {
@@ -498,7 +498,7 @@ _public_ int sd_bus_error_set_errno(sd_bus_error *e, int error) {
         return -error;
 }
 
-_public_ int sd_bus_error_set_errnofv(sd_bus_error *e, int error, const char *format, va_list ap) {
+_public_ int sd_bus_error_set_errnofv(sd_bus_error *e, int error, const char * restrict format, va_list ap) {
         PROTECT_ERRNO;
 
         if (error < 0)
@@ -559,7 +559,7 @@ fail:
         return -error;
 }
 
-_public_ int sd_bus_error_set_errnof(sd_bus_error *e, int error, const char *format, ...) {
+_public_ int sd_bus_error_set_errnof(sd_bus_error *e, int error, const char * restrict format, ...) {
         int r;
 
         if (error < 0)

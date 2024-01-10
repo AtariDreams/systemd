@@ -13,7 +13,7 @@
 #include "stdio-util.h"
 #include "string-util.h"
 
-int pam_syslog_errno(pam_handle_t *handle, int level, int error, const char *format, ...) {
+int pam_syslog_errno(pam_handle_t *handle, int level, int error, const char * restrict format, ...) {
         va_list ap;
 
         LOCAL_ERRNO(error);
@@ -25,7 +25,7 @@ int pam_syslog_errno(pam_handle_t *handle, int level, int error, const char *for
         return error == -ENOMEM ? PAM_BUF_ERR : PAM_SERVICE_ERR;
 }
 
-int pam_syslog_pam_error(pam_handle_t *handle, int level, int error, const char *format, ...) {
+int pam_syslog_pam_error(pam_handle_t *handle, int level, int error, const char * restrict format, ...) {
         /* This wraps pam_syslog() but will replace @PAMERR@ with a string from pam_strerror().
          * @PAMERR@ must be at the very end. */
 

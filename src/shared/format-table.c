@@ -523,7 +523,7 @@ int table_add_cell_full(
         return 0;
 }
 
-int table_add_cell_stringf_full(Table *t, TableCell **ret_cell, TableDataType dt, const char *format, ...) {
+int table_add_cell_stringf_full(Table *t, TableCell **ret_cell, TableDataType dt, const char * restrict format, ...) {
         _cleanup_free_ char *buffer = NULL;
         va_list ap;
         int r;

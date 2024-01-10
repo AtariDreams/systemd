@@ -472,7 +472,7 @@ static inline int json_dispatch_level(JsonDispatchFlags flags) {
         return LOG_ERR;
 }
 
-int json_log_internal(JsonVariant *variant, int level, int error, const char *file, int line, const char *func, const char *format, ...)  _printf_(7, 8);
+int json_log_internal(JsonVariant *variant, int level, int error, const char *file, int line, const char *func, const char * restrict format, ...)  _printf_(7, 8);
 
 #define json_log(variant, flags, error, ...)                            \
         ({                                                              \

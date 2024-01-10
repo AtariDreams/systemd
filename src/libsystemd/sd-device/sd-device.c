@@ -2507,7 +2507,7 @@ _public_ int sd_device_set_sysattr_value(sd_device *device, const char *sysattr,
         return 0;
 }
 
-_public_ int sd_device_set_sysattr_valuef(sd_device *device, const char *sysattr, const char *format, ...) {
+_public_ int sd_device_set_sysattr_valuef(sd_device *device, const char *sysattr, const char * restrict format, ...) {
         _cleanup_free_ char *value = NULL;
         va_list ap;
         int r;

@@ -25,8 +25,8 @@ typedef enum ReplaceEnvFlags {
         REPLACE_ENV_ALLOW_EXTENDED  = 1 << 2,
 } ReplaceEnvFlags;
 
-int replace_env_full(const char *format, size_t n, char **env, ReplaceEnvFlags flags, char **ret, char ***ret_unset_variables, char ***ret_bad_variables);
-static inline int replace_env(const char *format, char **env, ReplaceEnvFlags flags, char **ret) {
+int replace_env_full(const char * restrict format, size_t n, char **env, ReplaceEnvFlags flags, char **ret, char ***ret_unset_variables, char ***ret_bad_variables);
+static inline int replace_env(const char * restrict format, char **env, ReplaceEnvFlags flags, char **ret) {
         return replace_env_full(format, SIZE_MAX, env, flags, ret, NULL, NULL);
 }
 

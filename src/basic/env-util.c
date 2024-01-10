@@ -650,7 +650,7 @@ static int strv_env_get_n_validated(
 }
 
 int replace_env_full(
-                const char *format,
+                const char * restrict format,
                 size_t n,
                 char **env,
                 ReplaceEnvFlags flags,

@@ -40,5 +40,5 @@ int parse_show_status(const char *v, ShowStatus *ret);
 StatusUnitFormat status_unit_format_from_string(const char *v) _const_;
 const char* status_unit_format_to_string(StatusUnitFormat s) _pure_;
 
-int status_vprintf(const char *status, ShowStatusFlags flags, const char *format, va_list ap) _printf_(3,0);
-int status_printf(const char *status, ShowStatusFlags flags, const char *format, ...) _printf_(3,4);
+int status_vprintf(const char *status, ShowStatusFlags flags, const char * restrict format, va_list ap) _printf_(3,0);
+int status_printf(const char *status, ShowStatusFlags flags, const char * restrict format, ...) _printf_(3,4);

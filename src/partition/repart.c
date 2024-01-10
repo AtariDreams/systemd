@@ -1763,7 +1763,7 @@ static int partition_read_definition(Partition *p, const char *path, const char 
                                   "Format=swap and CopyFiles= cannot be combined, refusing.");
 
         if (!p->format) {
-                const char *format = NULL;
+                const char * restrict format = NULL;
 
                 if (!strv_isempty(p->copy_files) || !strv_isempty(p->make_directories) || (p->encrypt != ENCRYPT_OFF && !(p->copy_blocks_path || p->copy_blocks_auto)))
                         /* Pick "vfat" as file system for esp and xbootldr partitions, otherwise default to "ext4". */

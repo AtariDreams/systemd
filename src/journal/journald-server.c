@@ -1155,7 +1155,7 @@ static void server_dispatch_message_real(
         server_write_to_journal(s, journal_uid, iovec, n, priority);
 }
 
-void server_driver_message(Server *s, pid_t object_pid, const char *message_id, const char *format, ...) {
+void server_driver_message(Server *s, pid_t object_pid, const char *message_id, const char * restrict format, ...) {
 
         struct iovec *iovec;
         size_t n = 0, k, m;

@@ -16,7 +16,7 @@
 #include "time-util.h"
 #include "user-util.h"
 
-static void test_rlimit_parse_format_one(int resource, const char *string, rlim_t soft, rlim_t hard, int ret, const char *formatted) {
+static void test_rlimit_parse_format_one(int resource, const char *string, rlim_t soft, rlim_t hard, int ret, const char * restrict formatted) {
         _cleanup_free_ char *f = NULL;
         struct rlimit rl = {
                 .rlim_cur = 4711,

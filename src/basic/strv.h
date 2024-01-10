@@ -53,7 +53,7 @@ static inline int strv_extend(char ***l, const char *value) {
         return strv_extend_with_size(l, NULL, value);
 }
 
-int strv_extendf(char ***l, const char *format, ...) _printf_(2,3);
+int strv_extendf(char ***l, const char * restrict format, ...) _printf_(2,3);
 int strv_extend_front(char ***l, const char *value);
 
 int strv_push_with_size(char ***l, size_t *n, char *value);
