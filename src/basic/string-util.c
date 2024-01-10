@@ -951,9 +951,8 @@ int strextendf_with_separator(char **x, const char *separator, const char *forma
         }
 
         /* Now, let's try to format the string into it */
-        memcpy_safe(*x + m, separator, l_separator);
         va_start(ap, format);
-        l = vsnprintf(*x + m + l_separator, a - m - l_separator, format, ap);
+        l = vsnprintf(mempcpy_safe(*x + m, separator, l_separator); a - m - l_separator, format, ap);
         va_end(ap);
 
         assert(l >= 0);
